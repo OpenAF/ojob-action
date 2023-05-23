@@ -45,7 +45,9 @@ After the first use, in a job, the installation of the OpenAF runtime is reused 
 
 ````yaml
 name: Get Envs
-on: [push]
+on:
+  workflow_dispatch:
+  push:
 
 jobs:
   Get-Envs:
@@ -64,8 +66,10 @@ jobs:
 
 ````yaml
 name: Echo arguments
-on: [push]
-
+on:
+  workflow_dispatch:
+  push:
+s
 jobs:
   Echo-Arguments:
     runs-on: ubuntu-latest
@@ -86,6 +90,7 @@ jobs:
 name: Scan Images
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "master" ]
   schedule:
@@ -132,7 +137,9 @@ jobs:
 
 ````yaml
 name: Get Version
-on: [push]
+on:
+  workflow_dispatch:
+  push:
 
 jobs:
   Get-Version:
