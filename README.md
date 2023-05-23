@@ -69,7 +69,7 @@ name: Echo arguments
 on:
   workflow_dispatch:
   push:
-s
+
 jobs:
   Echo-Arguments:
     runs-on: ubuntu-latest
