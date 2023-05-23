@@ -120,7 +120,7 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         # only add/commit/push if new contents exist
-        if [[ $(git status --porcelain) ]]; then
+        if [[ $(git diff --quiet && git diff --staged --quiet) ]]; then
           git add .github/sec-latest.svg
           git add .github/sec-build.svg
           git commit -m "update badge"
