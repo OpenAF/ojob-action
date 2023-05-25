@@ -10,7 +10,7 @@ On a GitHub action step add the following entry:
 
 ````yaml
   - name: Executing an oJob
-    uses: openaf/ojob-action@v2
+    uses: openaf/ojob-action@v3
     with:
       # the reference to a local oJob yaml/json file or a remote oJob.io
       ojob: '...' 
@@ -32,11 +32,62 @@ After the first use, in a job, the installation of the OpenAF runtime is reused 
       path: /tmp/oaf
 
   - name: Executing an oJob
-    uses: openaf/ojob-action@v2
+    uses: openaf/ojob-action@v3
     with:
       ojob: '...' 
       args: 'key1=value1 key2=value2 ...'
       dist: 'nightly'
+````
+
+### Embedding an oJob definition
+
+It's possible to add the oJob YAML definition directly as the action parameters:
+
+````yaml
+  - name: Executing Hello World
+    uses: openaf/ojob-action@v3
+    with:
+      def : |
+        todo:
+        - Say hello
+        
+        jobs:
+        - name : Say hello
+          check:
+            in:
+              name: isString.default("someone")
+          exec : |
+            tprint("Hi {{name}}!", args)
+            
+      args: "name=Scott"
+````
+
+### Executing an OpenAF script
+
+If you have a local OpenAF script you can also run directly. 
+
+````yaml
+  - name: Executing hello.js
+    uses: openaf/ojob-action@v3
+    with:
+      oaf : scripts/hello.js
+      args: "name=Tiger"
+````
+
+### Embedding an OpenAF script
+
+If necessary, it's also possible to embeed a script directly with _script_:
+
+````yaml
+  - name: Executing hello.js
+    uses: openaf/ojob-action@v3
+    with:
+      script: |
+        var params = processExpr(" ")
+        
+        if (isDef(params.name)) tprint("Hi {{name}}!", params)
+        
+      args  : "name=Tiger"
 ````
 
 ## Examples
@@ -78,7 +129,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Echo input args for testing
-      uses: openaf/ojob-action@v2
+      uses: openaf/ojob-action@v3
       with:
         ojob: 'ojob.io/echo'
         args: 'abc=123 xyz=abc'
@@ -106,31 +157,25 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Scan some/image:latest
-      uses: openaf/ojob-action@v2
+      uses: openaf/ojob-action@v3
       with:
         ojob: 'ojob.io/sec/genSecBadge'
         args: 'image=some/image:latest file=.github/sec-latest.svg'
         dist: 'nightly'
 
     - name: Scan some/image:build
-      uses: openaf/ojob-action@v2
+      uses: openaf/ojob-action@v3
       with:
         ojob: 'ojob.io/sec/genSecBadge'
         args: 'image=some/image:build file=.github/sec-build.svg'
         dist: 'nightly'
 
     - name: Add the generated badges 
-      run : |
-        # user identification
-        git config user.name github-actions
-        git config user.email github-actions@github.com
-        # only add/commit/push if new contents exist
-        if [[ -n "$(git status --porcelain)" ]]; then
-          git add .github/sec-latest.svg
-          git add .github/sec-build.svg
-          git commit -m "update badge"
-          git push
-        fi
+      uses: openaf/ojob-action@v3
+      with:
+        ojob: 'ojob.io/git/githubCheckIn
+        args: 'title="Badges\ update"'
+        dist: 'nightly'
 ````
 
 *Example of a GitHub action to retrieve the installed version and distribution of OpenAF:*
@@ -148,22 +193,17 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Generating getVersion.yaml oJob
-      run : |
-        cat <<EOF > getVersion.yaml
-        todo:
-        - check version
-        
-        jobs:
-        - name: check version
-          exec: |
-            var data = { version: getVersion(), distribution: getDistribution() }
-            ow.oJob.output(data, args)
-        EOF
-
-    - name: Running getVersion.yaml oJob
-      uses: openaf/ojob-action@v2
+    - name: Running get version
+      uses: openaf/ojob-action@v3
       with:
-        ojob: 'getVersion.yaml'
-        dist: 'nightly'
+        def : |
+          todo:
+          - check version
+
+          jobs:
+          - name: check version
+            exec: |
+              var data = { version: getVersion(), distribution: getDistribution() }
+              ow.oJob.output(data, args)
+        dist: nightly
 ````
