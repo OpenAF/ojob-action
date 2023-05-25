@@ -52,7 +52,7 @@ runs:
         else
           if [ ! -z '${{ inputs.script }}' ]; then
             echo '${{ inputs.script }}' > /tmp/temp.js
-            /tmp/oaf/oaf -f /tmp/js -e '${{ inputs.args }}'
+            /tmp/oaf/oaf -f /tmp/temp.js -e '${{ inputs.args }}'
           else
             /tmp/oaf/ojob ${{ inputs.ojob }} ${{ inputs.args }}
           fi
