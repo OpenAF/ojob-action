@@ -173,7 +173,7 @@ jobs:
     - name: Add the generated badges 
       uses: openaf/ojob-action@v3
       with:
-        ojob: 'ojob.io/git/githubCheckIn
+        ojob: 'ojob.io/git/githubCheckIn'
         args: 'title="Badges\ update"'
         dist: 'nightly'
 ````
