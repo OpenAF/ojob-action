@@ -6,8 +6,20 @@ branding:
 inputs:
   ojob:  
     description: 'The oJob to run'
-    required: true
+    required: false
     default: 'ojob.io/envs'
+  def:
+    description: 'The oJob definition in alternative to the ojob input'
+    required: false
+    default: ''
+  oaf:
+    description: 'A OpenAF script file to run'
+    required: false
+    default: ''
+  script: 
+    description: 'The OpenAF script contents to execute'
+    required: false
+    default: ''
   args:
     description: 'The oJob args to use'
     required: false
@@ -25,10 +37,24 @@ runs:
         CDIR=`pwd`
         mkdir /tmp/oaf
         cd /tmp/oaf
-        curl https://openaf.io/${{ inputs.dist }}/openaf.jar.repacked -o openaf.jar
+        curl https://openaf.io/${{ inputs.dist }}/openaf.jar.repacked -o openaf.jar
         java -jar openaf.jar --install
         cd $CDIR
       fi
   - shell: bash
     run  : |
-      /tmp/oaf/ojob ${{ inputs.ojob }} ${{ inputs.args }}
+      if [ ! -z '${{ inputs.def }}' ]; then
+        echo '${{ inputs.def}}' > /tmp/temp.yaml
+        /tmp/oaf/ojob /tmp/temp.yaml ${{ inputs.args }}
+      else 
+        if [ ! -z '${{ inputs.oaf }}' ]; then
+          /tmp/oaf/oaf -c ${{ inputs.oaf }} -e '${{ inputs.args }}'
+        else
+          if [ ! -z '${{ inputs.script }}' ]; then
+            echo '${{ inputs.script }}' > /tmp/temp.js
+            /tmp/oaf/oaf -f /tmp/js -e '${{ inputs.args }}'
+          else
+            /tmp/oaf/ojob ${{ inputs.ojob }} ${{ inputs.args }}
+          fi
+        fi
+      fi
