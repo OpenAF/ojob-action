@@ -152,6 +152,8 @@ jobs:
     runs-on    : ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
+      
     name       : Scan images
     steps      :
     - uses: actions/checkout@v3
@@ -172,6 +174,8 @@ jobs:
 
     - name: Add the generated badges 
       uses: openaf/ojob-action@v3
+      env :
+        GH_TOKEN: ${{ github.token }}
       with:
         ojob: 'ojob.io/git/githubCheckIn'
         args: 'message="Badges\ update"'
