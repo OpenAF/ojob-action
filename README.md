@@ -174,7 +174,7 @@ jobs:
       uses: openaf/ojob-action@v3
       with:
         ojob: 'ojob.io/git/githubCheckIn'
-        args: 'title="Badges\ update"'
+        args: 'message="Badges\ update"'
         dist: 'nightly'
 ````
 
