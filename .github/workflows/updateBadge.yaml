@@ -24,6 +24,6 @@ jobs:
     - name: Push
       uses: openaf/ojob-action@v3
       with:
-        ojob: 'ojob.io/git/githubCheckIn'
+        ojob: 'ojob.io/git/hub/contentIn'
         args: 'message="update\ badge" paths=.github/ojobs/version.svg'
         dist: 't8'
