@@ -8,6 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
+  # OJOB.IO TEST
+  # ------------
   ojobio-test:
     runs-on: ubuntu-latest
     steps:
@@ -17,7 +19,68 @@ jobs:
       with:
         ojob: ojob.io/echo
         args: "x=123 y=456"
+    
+  # OJOB TESTS
+  # ----------
+  ojob-test:
+    runs-on: ubuntu-latest
+    steps  :
+    - name: simple ojob test
+      uses: openaf/ojob-action@v3
+      with:
+        def: |
+          todo:
+          - test
+          
+          jobs:
+          - name: test
+            exec: |
+              if (isUnDef(args.name) || args.name != "Tiger") exit(-1)
+        args: "name=Tiger"
+    
+  # SCRIPT TESTS
+  # ------------
+  script-test:
+    runs-on: ubuntu-latest
+    steps  :
+    - name: simple test (part 1)
+      uses: openaf/ojob-action@v3
+      with:
+        script: |
+          io.writeFileString("/tmp/test", "this is a test")
+          var test = io.readFileString("/tmp/test")
+          if (test != "this is a test") exit(-1)
+    - name: simple test (part 2)
+      uses: openaf/ojob-action@v3
+      with:
+        script: |
+          var test = io.readFileString("/tmp/test")
+          if (test != "this is a test") exit(-1)
+    - name: test with parameters
+      with:
+        script: |
+          var params = processExpr(" ")
         
+          ow.loadTest()
+          try {
+            ow.test.assert(isDef(params.name) && params.name == "Tiger", true, "Problem with parameter passing")
+            ow.test.assert(isDef(params.other) && params.other == "Scott Tiger", true, "Problem with parameters with space")
+          } catch(e} {
+            printErr(e)
+            exit(-1)
+          }
+        args  : "name=Tiger other=Scott\ Tiger"
+    - name: test with external script (part 1)
+      with:
+        script: |
+          io.writeFileString("/tmp/test.js", "var params = processExpr(' ')\nif (params.name != 'Tiger') exit(-1)")
+    - name: test with external script (part 2)
+      with:
+        oaf : /tmp/test.js
+        args: "name=Tiger"
+   
+  # DIST TESTS
+  # ----------
   dist-test:
     runs-on: ubuntu-latest
     steps:
@@ -27,8 +90,9 @@ jobs:
         dist  : nightly
         script: |
           if (getDistribution() != "nightly") exit(-1)
-    - name: stable test
+    - name: change dist test
       uses: openaf/ojob-action@v3
       with:
         script: |
-          if (getDistribution() != "stable") exit(-1)
+          // Refering to a different dist is not supporte so the same should be kept
+          if (getDistribution() != "nightly") exit(-1)
