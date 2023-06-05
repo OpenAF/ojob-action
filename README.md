@@ -1,6 +1,6 @@
 # ojob-action
 
-![version](.github/ojobs/version.svg)
+![version](.github/ojobs/version.svg) [![Tests](https://github.com/OpenAF/ojob-action/actions/workflows/tests.yml/badge.svg)](https://github.com/OpenAF/ojob-action/actions/workflows/tests.yml)
 
 OpenAF's oJob GitHub action to run generic [OpenAF](https://docs.openaf.io) [oJobs](https://docs.openaf.io/docs/concepts/oJob.html).
 
