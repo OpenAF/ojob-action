@@ -15,7 +15,7 @@ jobs:
     steps:
     #- uses: actions/checkout@v3
     - name: oJob.io echo test
-      uses: &ACTION openaf/ojob-action@v3
+      uses: openaf/ojob-action@v3
       with:
         ojob: ojob.io/echo
         args: "x=123 y=456"
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps  :
     - name: simple ojob test
-      uses: *ACTION
+      uses: openaf/ojob-action@v3
       with:
         def: |
           todo:
@@ -44,20 +44,20 @@ jobs:
     runs-on: ubuntu-latest
     steps  :
     - name: simple test (part 1)
-      uses: *ACTION
+      uses: openaf/ojob-action@v3
       with:
         script: |
           io.writeFileString("/tmp/test", "this is a test")
           var test = io.readFileString("/tmp/test")
           if (test != "this is a test") exit(-1)
     - name: simple test (part 2)
-      uses: *ACTION
+      uses: openaf/ojob-action@v3
       with:
         script: |
           var test = io.readFileString("/tmp/test")
           if (test != "this is a test") exit(-1)
     - name: test with parameters
-      uses: *ACTION
+      uses: openaf/ojob-action@v3
       with:
         script: |
           var params = processExpr(" ")
@@ -72,12 +72,12 @@ jobs:
           }
         args  : "name=Tiger other=Scott\ Tiger"
     - name: test with external script (part 1)
-      uses: *ACTION
+      uses: openaf/ojob-action@v3
       with:
         script: |
           io.writeFileString("/tmp/test.js", "var params = processExpr(' ')\nif (params.name != 'Tiger') exit(-1)")
     - name: test with external script (part 2)
-      uses: *ACTION
+      uses: openaf/ojob-action@v3
       with:
         oaf : /tmp/test.js
         args: "name=Tiger"
@@ -88,13 +88,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: nightly test
-      uses: *ACTION
+      uses: openaf/ojob-action@v3
       with:
         dist  : nightly
         script: |
           if (getDistribution() != "nightly") exit(-1)
     - name: change dist test
-      uses: *ACTION
+      uses: openaf/ojob-action@v3
       with:
         script: |
           // Refering to a different dist is not supporte so the same should be kept
