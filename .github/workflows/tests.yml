@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  ojobio-test:
+    runs-on: ubuntu-latest
+    steps:
+    #- uses: actions/checkout@v3
+    - name: oJob.io echo test
+      uses: openaf/ojob-action@v3
+      with:
+        ojob: ojob.io/echo
+        args: "x=123 y=456"
+        
+  dist-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: nightly test
+      uses: openaf/ojob-action@v3
+      with:
+        dist  : nightly
+        script: |
+          if (getDistribution() != "nightly") exit(-1)
+    - name: stable test
+      uses: openaf/ojob-action@v3
+      with:
+        script: |
+          if (getDistribution() != "stable") exit(-1)
