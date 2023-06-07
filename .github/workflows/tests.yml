@@ -13,7 +13,7 @@ jobs:
   ojobio-test:
     runs-on: ubuntu-latest
     steps:
-    #- uses: actions/checkout@v3
+    - uses: actions/checkout@v3
     - name: oJob.io echo test
       uses: ./
       with:
@@ -25,6 +25,7 @@ jobs:
   ojob-test:
     runs-on: ubuntu-latest
     steps  :
+    - uses: actions/checkout@v3
     - name: simple ojob test
       uses: ./
       with:
@@ -43,6 +44,7 @@ jobs:
   script-test:
     runs-on: ubuntu-latest
     steps  :
+    - uses: actions/checkout@v3
     - name: simple test (part 1)
       uses: ./
       with:
@@ -87,6 +89,7 @@ jobs:
   dist-test:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
     - name: nightly test
       uses: ./
       with:
