@@ -78,7 +78,7 @@ jobs:
       with:
         script: |
           io.writeFileString("/tmp/test.js", "var params = processExpr(' ')\nif (params.name != 'Tiger') exit(-1)")
-          print("/tmp/test.js")
+          print(io.readFileString("/tmp/test.js"))
     - name: test with external script (part 2)
       uses: ./
       with:
