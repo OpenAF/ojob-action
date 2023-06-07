@@ -40,7 +40,7 @@ runs:
     name : Check for def
     if   : ${{ inputs.def }}
     run  : |
-      ${{ 'echo ''${ inputs.def }''' }} > /tmp/temp.yaml
+      echo "${{ inputs.def | replace('\"', '\\\"') | replace('$', '$$') }}" > /tmp/temp.yaml
       /tmp/oaf/ojob /tmp/temp.yaml ${{ inputs.args }}
   - shell: bash
     name : Check for oaf
@@ -51,7 +51,7 @@ runs:
     name : Check for script
     if   : ${{ inputs.script }}
     run  : |
-      ${{ 'echo ''${ inputs.script }''' }} > /tmp/temp.js
+      echo "${{ inputs.script | replace('\"', '\\\"') | replace('$', '$$') }}" > /tmp/temp.js
       /tmp/oaf/oaf -f /tmp/temp.js -e '${{ inputs.args }}'
   - shell: bash
     name : Check for ojob
