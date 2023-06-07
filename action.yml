@@ -7,7 +7,7 @@ inputs:
   ojob:  
     description: 'The oJob to run'
     required: false
-    default: 'ojob.io/envs'
+    default: ''
   def:
     description: 'The oJob definition in alternative to the ojob input'
     required: false
