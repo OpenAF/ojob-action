@@ -72,7 +72,7 @@ jobs:
             printErr(e)
             exit(-1)
           }
-        args  : "name=Tiger other=Scott\ Tiger"
+        args  : "name=Tiger other=\"Scott\ Tiger\""
     - name: test with external script (part 1)
       uses: ./
       with:
