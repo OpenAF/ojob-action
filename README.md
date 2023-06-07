@@ -10,7 +10,7 @@ On a GitHub action step add the following entry:
 
 ````yaml
   - name: Executing an oJob
-    uses: openaf/ojob-action@v3
+    uses: openaf/ojob-action@v4
     with:
       # the reference to a local oJob yaml/json file or a remote oJob.io
       ojob: '...' 
@@ -32,7 +32,7 @@ After the first use, in a job, the installation of the OpenAF runtime is reused 
       path: /tmp/oaf
 
   - name: Executing an oJob
-    uses: openaf/ojob-action@v3
+    uses: openaf/ojob-action@v4
     with:
       ojob: '...' 
       args: 'key1=value1 key2=value2 ...'
@@ -45,7 +45,7 @@ It's possible to add the oJob YAML definition directly as the action parameters:
 
 ````yaml
   - name: Executing Hello World
-    uses: openaf/ojob-action@v3
+    uses: openaf/ojob-action@v4
     with:
       def : |
         todo:
@@ -68,7 +68,7 @@ If you have a local OpenAF script you can also run directly.
 
 ````yaml
   - name: Executing hello.js
-    uses: openaf/ojob-action@v3
+    uses: openaf/ojob-action@v4
     with:
       oaf : scripts/hello.js
       args: "name=Tiger"
@@ -80,7 +80,7 @@ If necessary, it's also possible to embeed a script directly with _script_:
 
 ````yaml
   - name: Executing hello.js
-    uses: openaf/ojob-action@v3
+    uses: openaf/ojob-action@v4
     with:
       script: |
         var params = processExpr(" ")
@@ -108,7 +108,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Retrieve env variables for testing
-      uses: openaf/ojob-action@v2
+      uses: openaf/ojob-action@v4
       with:
         ojob: 'ojob.io/envs'
 ````
@@ -129,7 +129,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Echo input args for testing
-      uses: openaf/ojob-action@v3
+      uses: openaf/ojob-action@v4
       with:
         ojob: 'ojob.io/echo'
         args: 'abc=123 xyz=abc'
@@ -159,21 +159,21 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Scan some/image:latest
-      uses: openaf/ojob-action@v3
+      uses: openaf/ojob-action@v4
       with:
         ojob: 'ojob.io/sec/genSecBadge'
         args: 'image=some/image:latest file=.github/sec-latest.svg'
         dist: 'nightly'
 
     - name: Scan some/image:build
-      uses: openaf/ojob-action@v3
+      uses: openaf/ojob-action@v4
       with:
         ojob: 'ojob.io/sec/genSecBadge'
         args: 'image=some/image:build file=.github/sec-build.svg'
         dist: 'nightly'
 
     - name: Add the generated badges 
-      uses: openaf/ojob-action@v3
+      uses: openaf/ojob-action@v4
       env :
         GH_TOKEN: ${{ github.token }}
       with:
@@ -198,7 +198,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Running get version
-      uses: openaf/ojob-action@v3
+      uses: openaf/ojob-action@v4
       with:
         def : |
           todo:
