@@ -7,31 +7,26 @@ inputs:
   ojob:  
     description: 'The oJob to run'
     required: false
-    default: 'ojob.io/envs'
   def:
     description: 'The oJob definition in alternative to the ojob input'
     required: false
-    default: ''
   oaf:
     description: 'A OpenAF script file to run'
     required: false
-    default: ''
   script: 
     description: 'The OpenAF script contents to execute'
     required: false
-    default: ''
   args:
     description: 'The oJob args to use'
     required: false
-    default: ''
   dist:
     description: 'The OpenAF distribution to use'
     required: false
-    default: ''
 runs:
   using: "composite"
   steps:
   - shell: bash
+    name : check runtime
     run  : |
       if [ ! -f /tmp/oaf/ojob ]; then
         CDIR=`pwd`
@@ -42,19 +37,28 @@ runs:
         cd $CDIR
       fi
   - shell: bash
+    name : Check for def
+    if   : ${{ inputs.def }}
     run  : |
-      if [ ! -z '${{ inputs.def }}' ]; then
-        echo '${{ inputs.def}}' > /tmp/temp.yaml
-        /tmp/oaf/ojob /tmp/temp.yaml ${{ inputs.args }}
-      else 
-        if [ ! -z '${{ inputs.oaf }}' ]; then
-          /tmp/oaf/oaf -c ${{ inputs.oaf }} -e '${{ inputs.args }}'
-        else
-          if [ ! -z '${{ inputs.script }}' ]; then
-            echo '${{ inputs.script }}' > /tmp/temp.js
-            /tmp/oaf/oaf -f /tmp/temp.js -e '${{ inputs.args }}'
-          else
-            /tmp/oaf/ojob ${{ inputs.ojob }} ${{ inputs.args }}
-          fi
-        fi
-      fi
+      cat << ____EOF > /tmp/temp.yaml
+      ${{ inputs.def }}
+      ____EOF
+      /tmp/oaf/ojob /tmp/temp.yaml ${{ inputs.args }}
+  - shell: bash
+    name : Check for oaf
+    if   : ${{ inputs.oaf }}
+    run  : |
+      /tmp/oaf/oaf -f ${{ inputs.oaf }} -e '${{ inputs.args }}'
+  - shell: bash
+    name : Check for script
+    if   : ${{ inputs.script }}
+    run  : |
+      cat << ____EOF > /tmp/temp.js
+      ${{ inputs.script }}
+      ____EOF
+      /tmp/oaf/oaf -f /tmp/temp.js -e '${{ inputs.args }}'
+  - shell: bash
+    name : Check for ojob
+    if   : ${{ inputs.ojob }}
+    run  : |
+      /tmp/oaf/ojob ${{ inputs.ojob }} ${{ inputs.args }}
