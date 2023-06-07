@@ -15,7 +15,7 @@ jobs:
     steps:
     #- uses: actions/checkout@v3
     - name: oJob.io echo test
-      uses: openaf/ojob-action@v3
+      uses: ./
       with:
         ojob: ojob.io/echo
         args: "x=123 y=456"
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps  :
     - name: simple ojob test
-      uses: openaf/ojob-action@v3
+      uses: ./
       with:
         def: |
           todo:
@@ -44,20 +44,20 @@ jobs:
     runs-on: ubuntu-latest
     steps  :
     - name: simple test (part 1)
-      uses: openaf/ojob-action@v3
+      uses: ./
       with:
         script: |
           io.writeFileString("/tmp/test", "this is a test")
           var test = io.readFileString("/tmp/test")
           if (test != "this is a test") exit(-1)
     - name: simple test (part 2)
-      uses: openaf/ojob-action@v3
+      uses: ./
       with:
         script: |
           var test = io.readFileString("/tmp/test")
           if (test != "this is a test") exit(-1)
     - name: test with parameters
-      uses: openaf/ojob-action@v3
+      uses: ./
       with:
         script: |
           var params = processExpr(" ")
@@ -66,20 +66,20 @@ jobs:
           try {
             ow.test.assert(isDef(params.name) && params.name == "Tiger", true, "Problem with parameter passing")
             ow.test.assert(isDef(params.other) && params.other == "Scott Tiger", true, "Problem with parameters with space")
-          } catch(e) {
+          } catch(e} {
             printErr(e)
             exit(-1)
           }
         args  : "name=Tiger other=Scott\ Tiger"
     - name: test with external script (part 1)
-      uses: openaf/ojob-action@v3
+      uses: ./
       with:
         script: |
           io.writeFileString("/tmp/test.js", "var params = processExpr(' ')\nif (params.name != 'Tiger') exit(-1)")
     - name: test with external script (part 2)
-      uses: openaf/ojob-action@v3
+      uses: ./
       with:
-        oaf : "/tmp/test.js"
+        oaf : /tmp/test.js
         args: "name=Tiger"
    
   # DIST TESTS
@@ -88,7 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: nightly test
-      uses: openaf/ojob-action@v3
+      uses: ./
       with:
         dist  : nightly
         script: |
