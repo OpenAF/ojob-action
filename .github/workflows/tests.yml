@@ -66,7 +66,7 @@ jobs:
           try {
             ow.test.assert(isDef(params.name) && params.name == "Tiger", true, "Problem with parameter passing")
             ow.test.assert(isDef(params.other) && params.other == "Scott Tiger", true, "Problem with parameters with space")
-          } catch(e} {
+          } catch(e) {
             printErr(e)
             exit(-1)
           }
@@ -79,7 +79,7 @@ jobs:
     - name: test with external script (part 2)
       uses: openaf/ojob-action@v3
       with:
-        oaf : /tmp/test.js
+        oaf : "/tmp/test.js"
         args: "name=Tiger"
    
   # DIST TESTS
