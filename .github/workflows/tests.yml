@@ -36,7 +36,7 @@ jobs:
           jobs:
           - name: test
             exec: |
-              args.name2 = $sh("echo " + args.name).get(0).stdout
+              args.name2 = $sh("echo " + args.name).get(0).stdout.trim()
               if (isUnDef(args.name) || args.name != "Tiger") exit(-1)
               if (isUnDef(args.name2) || args.name2 != "Tiger") exit(-2)
         args: "name=Tiger"
@@ -79,7 +79,7 @@ jobs:
       uses: ./
       with:
         script: |
-          var name = $sh("echo Tiger").get(0).stdout
+          var name = $sh("echo Tiger").get(0).stdout.trim()
           if (isUnDef(name) || name != "Tiger") exit(-1)
     - name: test with external script (part 1)
       uses: ./
