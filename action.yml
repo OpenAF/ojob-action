@@ -40,9 +40,7 @@ runs:
     name : Check for def
     if   : ${{ inputs.def }}
     run  : |
-      cat << ____EOF > /tmp/temp.yaml
-      ${{ inputs.def }}
-      ____EOF
+      echo ${{ format('''{0}''', inputs.def) }} > /tmp/temp.yaml
       /tmp/oaf/ojob /tmp/temp.yaml ${{ inputs.args }}
   - shell: bash
     name : Check for oaf
@@ -53,9 +51,7 @@ runs:
     name : Check for script
     if   : ${{ inputs.script }}
     run  : |
-      cat << ____EOF > /tmp/temp.js
-      ${{ inputs.script }}
-      ____EOF
+      echo ${{ format('''{0}''', inputs.script) }} > /tmp/temp.js
       /tmp/oaf/oaf -f /tmp/temp.js -e '${{ inputs.args }}'
   - shell: bash
     name : Check for ojob
