@@ -4,7 +4,7 @@
 
 OpenAF's oJob GitHub action to run generic [OpenAF](https://docs.openaf.io) [oJobs](https://docs.openaf.io/docs/concepts/oJob.html).
 
-## Usage
+## Basic usage
 
 On a GitHub action step add the following entry:
 
@@ -91,6 +91,8 @@ If necessary, it's also possible to embeed a script directly with _script_:
 ````
 
 ## Examples
+
+Checkout also the [catalog of uses](USES.md).
 
 *Example of a GitHub action to run an ojob.io job:*
 
