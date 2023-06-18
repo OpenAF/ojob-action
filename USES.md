@@ -55,3 +55,48 @@ The result will be something similar to:
 
 [![generated badge](https://raw.githubusercontent.com/OpenAF/openaf-dockers/master/.github/sec-latest.svg)](https://github.com/OpenAF/openaf-dockers/blob/master/.github/sec-latest.md)
 
+> Use the "Check In" oJob to commit the generated files
+
+## Generate a custom badge
+
+You can also write a quick oJob definition to generate a badge with custom values. Here is an example of retriving of extracting the current version from a package.yaml file and creating a badge with it:
+
+````yaml
+  - name: Update version badge
+    uses: openaf/ojob-action@v4
+    with:
+      def : |
+        todo:
+        - Update badge with version
+
+        ojob:
+          opacks:
+          - Badgen
+
+        include:
+        - badgen.yaml
+
+        jobs:
+        # -------------------------------
+        - name: Update badge with version
+          from: Get version
+          to  :
+          - name: Badgen generate file
+            args: 
+              labelColor: grey3
+              color     : blue
+              icon      : "openaf_grey.svg"
+              label     : "plugin-XLS"
+              file      : ".github/version.svg"
+
+        # -----------------
+        - name: Get version
+          exec: args.status = io.readFileYAML(".package.yaml").version
+      dist: nightly
+````
+
+The result will be similar to:
+
+![generated badge](https://raw.githubusercontent.com/OpenAF/openaf-opacks/master/.github/badges/plugin-XLS.svg)
+
+> Use the "Check In" oJob to commit the generated files
