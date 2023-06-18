@@ -55,6 +55,11 @@ The result will be something similar to:
 
 [![generated badge](https://raw.githubusercontent.com/OpenAF/openaf-dockers/master/.github/sec-latest.svg)](https://github.com/OpenAF/openaf-dockers/blob/master/.github/sec-latest.md)
 
+On the target markdown file add:
+````markdown
+[![generated badge](.github/sec-latest.svg)](.github/sec-latest-md)
+````
+
 > Use the "Check In" oJob to commit the generated files
 
 ## Generate a custom badge
@@ -98,5 +103,10 @@ You can also write a quick oJob definition to generate a badge with custom value
 The result will be similar to:
 
 ![generated badge](https://raw.githubusercontent.com/OpenAF/openaf-opacks/master/.github/badges/plugin-XLS.svg)
+
+On the target markdown file add:
+````markdown
+![generated badge](.github/version.svg)
+````
 
 > Use the "Check In" oJob to commit the generated files
