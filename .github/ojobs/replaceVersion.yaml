@@ -33,6 +33,9 @@ jobs:
 
 # ---------------------------------
 - name : Replace files with version
+  check:
+    in: 
+      file: isString
   from :
   - Check tag version
   to   :
@@ -51,12 +54,12 @@ jobs:
     ((useRegExp )): true
 
   - (pass          ):
-      inputFile  : null
-      outputFile : "{{file}}"
+      inputFile : null
+      outputFile: "{{file}}"
     ((debug       )): true
     ((templateArgs)): true
 
-  - (template    ): "{{{$t output this}}}"
-    ((key       )): args
-    ((tpath     )): output
+  - (template      ): "{{{$t output this}}}"
+    ((key         )): args
+    ((tpath       )): output
     #((outputFile)): README.md
