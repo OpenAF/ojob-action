@@ -41,7 +41,6 @@ jobs:
   to   :
   - (pass          ):
       inputFile : "{{file}}"
-      outputFile: null
     ((debug       )): false
     ((templateArgs)): true
 
