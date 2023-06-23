@@ -42,7 +42,7 @@ jobs:
   - (pass          ):
       inputFile : "{{file}}"
       outputFile: null
-    ((debug       )): true
+    ((debug       )): false
     ((templateArgs)): true
 
   - (findReplace ):
@@ -56,7 +56,7 @@ jobs:
   - (pass          ):
       inputFile : null
       outputFile: "{{file}}"
-    ((debug       )): true
+    ((debug       )): false
     ((templateArgs)): true
 
   - (template      ): "{{{$t output this}}}"
