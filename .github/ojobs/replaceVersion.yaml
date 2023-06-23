@@ -25,7 +25,7 @@ jobs:
 - name: Check tag version
   exec: |
     args.tagVersion = $from( 
-                        $sh("gh api repos/mob-eng/risk-rca-ojob-action/releases").getJson(0).stdout 
+                        $sh("gh api repos/openaf/ojob-action/releases").getJson(0).stdout 
                       )
                       .sort("-published_at")
                       .at(0)
