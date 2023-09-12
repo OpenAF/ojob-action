@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     name   : Get env variables
     steps  :
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Retrieve env variables for testing
       uses: openaf/ojob-action@v4
@@ -128,7 +128,7 @@ jobs:
     runs-on: ubuntu-latest
     name   : Echo arguments
     steps  :
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Echo input args for testing
       uses: openaf/ojob-action@v4
@@ -158,7 +158,7 @@ jobs:
       
     name       : Scan images
     steps      :
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Scan some/image:latest
       uses: openaf/ojob-action@v4
@@ -197,7 +197,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Get version
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Running get version
       uses: openaf/ojob-action@v4
