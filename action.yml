@@ -22,6 +22,9 @@ inputs:
   dist:
     description: 'The OpenAF distribution to use'
     required: false
+  pwd :
+    description: 'Path to the working directory to use'
+    required: false
 runs:
   using: "composite"
   steps:
@@ -41,20 +44,32 @@ runs:
     if   : ${{ inputs.def }}
     run  : |
       echo ${{ format('''{0}''', inputs.def) }} > /tmp/temp.yaml
+      if [ '${{ inputs.pwd }}' != '']; then
+         cd ${{ inputs.pwd }}
+      fi
       /tmp/oaf/ojob /tmp/temp.yaml ${{ inputs.args }}
   - shell: bash
     name : Check for oaf
     if   : ${{ inputs.oaf }}
     run  : |
+      if [ '${{ inputs.pwd }}' != '']; then
+         cd ${{ inputs.pwd }}
+      fi
       /tmp/oaf/oaf -f ${{ inputs.oaf }} -e '${{ inputs.args }}'
   - shell: bash
     name : Check for script
     if   : ${{ inputs.script }}
     run  : |
       echo ${{ format('''{0}''', inputs.script) }} > /tmp/temp.js
+      if [ '${{ inputs.pwd }}' != '']; then
+         cd ${{ inputs.pwd }}
+      fi
       /tmp/oaf/oaf -f /tmp/temp.js -e '${{ inputs.args }}'
   - shell: bash
     name : Check for ojob
     if   : ${{ inputs.ojob }}
     run  : |
+      if [ '${{ inputs.pwd }}' != '']; then
+         cd ${{ inputs.pwd }}
+      fi
       /tmp/oaf/ojob ${{ inputs.ojob }} ${{ inputs.args }}
