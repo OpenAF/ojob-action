@@ -37,6 +37,7 @@ After the first use, in a job, the installation of the OpenAF runtime is reused 
       ojob: '...' 
       args: 'key1=value1 key2=value2 ...'
       dist: 'nightly'
+      pwd : '/some/dir'
 ````
 
 ### Embedding an oJob definition
