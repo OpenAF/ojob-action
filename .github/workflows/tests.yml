@@ -111,3 +111,17 @@ jobs:
         script: |
           // Refering to a different dist is not supporte so the same should be kept
           if (getDistribution() != "nightly") exit(-1)
+
+  # PWD TESTS
+  # ---------
+  dist-pwd:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: pwd test
+      uses: ./
+      with:
+        dist  : nightly
+        pwd   : /etc
+        script: |
+          if (io.fileInfo(".").canonicalPath != "/etc") exit(-1)
