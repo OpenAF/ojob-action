@@ -15,7 +15,7 @@ steps:
 - name: Commit changes
   env :
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  uses: openaf/ojob-action@v4
+  uses: openaf/ojob-action@v5
     with:
       ojob: 'ojob.io/git/hub/contentIn'
       args: 'message="Update\ files" title="Automated\ update\ PR\" paths="README.md,changed/path/"'
@@ -31,7 +31,7 @@ This oJob.io job will use a docker container to scan the provided image with Tri
 ````yaml
 steps:
 - name: Scan latest
-  uses: openaf/ojob-action@v4
+  uses: openaf/ojob-action@v5
   with:
     ojob: 'ojob.io/sec/genSecBadge'
     args: 'image=openaf/oaf:latest file=.github/sec-latest.svg reportFile=.github/sec-latest.yaml'
@@ -45,7 +45,7 @@ You can also convert the YAML results into a markdown with a fixed-width tree di
 ````yaml
 steps:
 - name: Generate sec-latest.md
-  uses: openaf/ojob-action@v4
+  uses: openaf/ojob-action@v5
   with:
     ojob: 'ojob.io/util/toMDTree'
     args: 'inputFile=.github/sec-latest.yaml file=.github/sec-latest.md'
@@ -68,7 +68,7 @@ You can also write a quick oJob definition to generate a badge with custom value
 
 ````yaml
   - name: Update version badge
-    uses: openaf/ojob-action@v4
+    uses: openaf/ojob-action@v5
     with:
       def : |
         todo:
