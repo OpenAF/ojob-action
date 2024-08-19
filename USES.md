@@ -17,8 +17,8 @@ steps:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   uses: openaf/ojob-action@v5
     with:
-      ojob: 'ojob.io/git/hub/contentIn'
-      args: 'message="Update\ files" title="Automated\ update\ PR\" paths="README.md,changed/path/"'
+      ojob: "ojob.io/git/hub/contentIn"
+      args: "message=\"Update files\" title=\"Automated update PR\" paths=\"README.md,changed/path/\" branch=\"${{ github.ref_name }}\""
       dist: nightly
 ````
 
