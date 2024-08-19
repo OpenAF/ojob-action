@@ -25,8 +25,8 @@ jobs:
     - name: Push
       env:
         GH_TOKEN: ${{ github.token }}
-      uses: openaf/ojob-action@v4
+      uses: openaf/ojob-action@v5
       with:
-        ojob: 'ojob.io/git/hub/contentIn'
-        args: 'message="update\ badge" paths=.github/ojobs/version.svg'
-        dist: 't8'
+        ojob: "ojob.io/git/hub/contentIn"
+        args: "message=\"update badge\" paths=.github/ojobs/version.svg branch=\"${{ github.ref_name }}\""
+        dist: "t8"

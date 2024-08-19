@@ -19,7 +19,7 @@ jobs:
     - name: Update version files
       env :
         GH_TOKEN: ${{ github.token }}
-      uses: openaf/ojob-action@v4
+      uses: openaf/ojob-action@v5
       with:
         ojob: '.github/ojobs/replaceVersion.yaml'
         dist: 't8'
@@ -27,8 +27,8 @@ jobs:
     - name: Push
       env :
         GH_TOKEN: ${{ github.token }}
-      uses: openaf/ojob-action@v4
+      uses: openaf/ojob-action@v5
       with:
-        ojob: 'ojob.io/git/hub/contentIn'
-        args: 'message="update\ files" paths=README.md,USES.md'
-        dist: 't8'
+        ojob: "ojob.io/git/hub/contentIn"
+        args: "message=\"update files\" paths=README.md,USES.md branch=\"${{ github.ref_name }}\""
+        dist: "t8"
