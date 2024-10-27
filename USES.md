@@ -62,6 +62,37 @@ On the target markdown file add:
 
 > Use the "Check In" oJob to commit the generated files
 
+## Preload Trivy database for image scan badge
+
+To retrieve the trivy database to cache:
+
+```yaml
+steps:
+- name: Retrieve trivy java database
+  uses: openaf/ojob-action@v5
+  with:
+    ojob: 'ojob.io/sec/trivy'
+    args: 'dockerOptions="-v trivy-db:/root/.cache/trivy" options="image --download-java-db-only"
+
+- name: Retrieve trivy database
+  uses: openaf/ojob-action@v5
+  with:
+    ojob: 'ojob.io/sec/trivy'
+    args: 'dockerOptions="-v trivy-db:/root/.cache/trivy" options="image --download-db-only"
+
+- name: Store the trivy databases in cache
+  run : |
+    docker run --rm -v trivy-db:/volume -v /tmp/oaf/trivy-db:/backup busybox tar czf /backup/trivy-db.tgz -C /volume .
+```
+
+To restore the trivy database from cache:
+
+```yaml
+- name: Restore the trivy databases from cache
+  run : |
+    docker run --rm -v trivy-db:/volume -v /tmp/oaf/trivy-db:/backup busybox tar xzf /backup/trivy-db.tgz -C /volume
+```
+
 ## Generate a custom badge
 
 You can also write a quick oJob definition to generate a badge with custom values. Here is an example of retriving of extracting the current version from a package.yaml file and creating a badge with it:
