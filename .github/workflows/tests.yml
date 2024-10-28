@@ -106,7 +106,7 @@ jobs:
         script: |
           if (getDistribution() != "nightly") exit(-1)
     - name: change dist test
-      uses: openaf/ojob-action@v5
+      uses: openaf/ojob-action@v6
       with:
         script: |
           // Refering to a different dist is not supporte so the same should be kept
