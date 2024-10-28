@@ -33,7 +33,7 @@ runs:
     uses: actions/setup-java@v4
     with:
       java-version: 21
-      distribution: 'temurin'
+      distribution: 'microsoft'
   - shell: bash
     name : check runtime
     run  : |
