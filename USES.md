@@ -72,13 +72,13 @@ steps:
   uses: openaf/ojob-action@v5
   with:
     ojob: 'ojob.io/sec/trivy'
-    args: 'dockerOptions="-v trivy-db:/root/.cache/trivy" options="image --download-java-db-only"
+    args: 'dockerOptions="-v trivy-db:/root/.cache/trivy" options="image --download-java-db-only"'
 
 - name: Retrieve trivy database
   uses: openaf/ojob-action@v5
   with:
     ojob: 'ojob.io/sec/trivy'
-    args: 'dockerOptions="-v trivy-db:/root/.cache/trivy" options="image --download-db-only"
+    args: 'dockerOptions="-v trivy-db:/root/.cache/trivy" options="image --download-db-only"'
 
 - name: Store the trivy databases in cache
   run : |
