@@ -39,13 +39,13 @@ runs:
     run  : |
       if [ ! -f /tmp/oaf/ojob ]; then
         CDIR=`pwd`
-        mkdir /tmp/_oaf
-        cd /tmp/_oaf
+        mkdir /tmp/_tmpoaf
+        cd /tmp/_tmpoaf
         curl https://openaf.io/getStatic.sh | DIST=${{ inputs.dist }} sh
         ./oaf -v
         cd /tmp
-        bash -c "mv oaf* oaf"
-        rm -rf /tmp/_oaf
+        bash -c "mv _oaf* oaf"
+        rm -rf /tmp/_tmpoaf
         cd $CDIR
       fi
   - shell: bash
