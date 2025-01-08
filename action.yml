@@ -29,20 +29,23 @@ runs:
   using: "composite"
   steps:
   # -------------------
-  - name: Setup Java 21
-    uses: actions/setup-java@v4
-    with:
-      java-version: 21
-      distribution: 'temurin'
+  #- name: Setup Java 21
+  #  uses: actions/setup-java@v4
+  #  with:
+  #    java-version: 21
+  #    distribution: 'temurin'
   - shell: bash
     name : check runtime
     run  : |
       if [ ! -f /tmp/oaf/ojob ]; then
         CDIR=`pwd`
-        mkdir /tmp/oaf
-        cd /tmp/oaf
-        curl https://openaf.io/${{ inputs.dist }}/openaf.jar.repacked -o openaf.jar
-        java -jar openaf.jar --install
+        mkdir /tmp/_oaf
+        cd /tmp/_oaf
+        curl https://openaf.io/getStatic.sh | DIST=${{ inputs.dist }} sh
+        ./oaf -v
+        cd /tmp
+        mv oaf* oaf
+        rm -rf /tmp/_oaf
         cd $CDIR
       fi
   - shell: bash
