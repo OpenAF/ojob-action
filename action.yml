@@ -44,7 +44,7 @@ runs:
         curl https://openaf.io/getStatic.sh | DIST=${{ inputs.dist }} sh
         ./oaf -v
         cd /tmp
-        mv oaf* oaf
+        bash -c "mv oaf* oaf"
         rm -rf /tmp/_oaf
         cd $CDIR
       fi
