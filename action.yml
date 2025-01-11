@@ -46,7 +46,7 @@ runs:
   #       cd $CDIR
   #     fi
   - name : Setup OpenAF
-    uses : openaf/action-setup@v1.2
+    uses : openaf/action-setup@v2
     with :
       dist: ${{ inputs.dist }}
 
