@@ -40,7 +40,7 @@ runs:
       path      : .github/action/oaf-action-setup
 
   - name : Activate OpenAF action-setup
-    uses : .github/action/oaf-action-setup
+    uses : ./.github/action/oaf-action-setup
 
   - shell: bash
     name : Check for def
@@ -70,7 +70,7 @@ runs:
          cd ${{ inputs.pwd }}
       fi
       /tmp/oaf/oaf -f /tmp/temp.js -e '${{ inputs.args }}'
-      
+
   - shell: bash
     name : Check for ojob
     if   : ${{ inputs.ojob }}
