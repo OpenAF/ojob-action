@@ -10,7 +10,7 @@ On a GitHub action step add the following entry:
 
 ````yaml
   - name: Executing an oJob
-    uses: openaf/ojob-action@v6
+    uses: openaf/ojob-action@v7
     with:
       # the reference to a local oJob yaml/json file or a remote oJob.io
       ojob: '...' 
