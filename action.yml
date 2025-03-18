@@ -41,6 +41,8 @@ runs:
 
   - name : Activate OpenAF action-setup
     uses : ./.github/action/oaf-action-setup
+    with :
+      dist: ${{ inputs.dist }}
 
   - shell: bash
     name : Check for def
