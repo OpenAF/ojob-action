@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Update version badge
-      uses: openaf/ojob-action@v4
+      uses: openaf/ojob-action@v7
       with:
         ojob: '.github/ojobs/updateVerBadge.yaml'
         dist: 't8'
@@ -25,7 +25,7 @@ jobs:
     - name: Push
       env:
         GH_TOKEN: ${{ github.token }}
-      uses: openaf/ojob-action@v6
+      uses: openaf/ojob-action@v7
       with:
         ojob: "ojob.io/git/hub/contentIn"
         args: "message=\"update badge\" paths=.github/ojobs/version.svg branch=\"${{ github.ref_name }}\""
